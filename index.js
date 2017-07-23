@@ -2,20 +2,28 @@
  * Base Markdown component
  * @author Mient-jan Stelling
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import { parser, stringToTokens, tokensToAST } from './lib/parser';
 import defaultRenderFunctions from './lib/defaultRenderFunctions';
 import AstRenderer from './lib/AstRenderer';
 import MarkdownIt from 'markdown-it';
-import PluginContainer from "./lib/PluginContainer";
-import blockPlugin from "./lib/blockPlugin";
+import PluginContainer from './lib/PluginContainer';
+import blockPlugin from './lib/blockPlugin';
 
 /**
  *
  */
-export { defaultRenderFunctions, AstRenderer, parser, stringToTokens, tokensToAST, MarkdownIt, PluginContainer, blockPlugin };
+export {
+  defaultRenderFunctions,
+  AstRenderer,
+  parser,
+  stringToTokens,
+  tokensToAST,
+  MarkdownIt,
+  PluginContainer,
+  blockPlugin,
+};
 
 export default class Markdown extends Component {
   /**
@@ -25,7 +33,6 @@ export default class Markdown extends Component {
     children: PropTypes.node.isRequired,
     renderer: PropTypes.instanceOf(AstRenderer),
     plugins: PropTypes.arrayOf(PropTypes.instanceOf(PluginContainer)),
-    styles: PropTypes.any
   };
 
   /**
@@ -34,7 +41,6 @@ export default class Markdown extends Component {
   static defaultProps = {
     renderer: new AstRenderer(defaultRenderFunctions),
     plugins: [],
-    styles: {},
   };
 
   copy = '';
@@ -46,9 +52,7 @@ export default class Markdown extends Component {
    * @return {boolean}
    */
   shouldComponentUpdate(nextProps, nextState) {
-    const copy = nextProps.children instanceof Array
-      ? nextProps.children.join('')
-      : nextProps.children;
+    const copy = this.getCopyFromProps(nextProps);
 
     if (copy !== this.copy) {
       this.copy = copy;
@@ -58,23 +62,25 @@ export default class Markdown extends Component {
     return false;
   }
 
+  /**
+   *
+   */
   componentWillMount() {
-  	if(this.props.plugins && this.props.plugins.length > 0 && !this.md)
-    {
-    	let md = MarkdownIt();
+    if (this.props.plugins && this.props.plugins.length > 0 && !this.md) {
+      let md = MarkdownIt();
 
-    	this.props.plugins.forEach(plugin => {
-		    md = md.use.apply(md, plugin.toArray());
-	    });
+      this.props.plugins.forEach(plugin => {
+        md = md.use.apply(md, plugin.toArray());
+      });
 
-	    this.md = md;
+      this.md = md;
     }
   }
 
-  getCopyFromProps() {
-    return this.props.children instanceof Array
-      ? this.props.children.join('')
-      : this.props.children;
+  getCopyFromProps(props = this.props.children) {
+    return props.children instanceof Array
+      ? props.children.join('')
+      : props.children;
   }
 
   /**
@@ -83,8 +89,8 @@ export default class Markdown extends Component {
    */
   render() {
     const copy = (this.copy = this.getCopyFromProps());
-    const { renderer, styles } = this.props;
-    const asttree = parser(copy, this.md);
-    return renderer.render(asttree, styles);
+    const { renderer } = this.props;
+
+    return parser(copy, renderer, this.md);
   }
 }

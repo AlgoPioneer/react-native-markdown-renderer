@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Picker } from 'react-native';
 import Markdown, {
-  AstRenderer,
-  styles,
-  renderRules,
-  getUniqueID,
+	AstRenderer,
+	styles,
+	renderRules,
+	getUniqueID, PluginContainer,
 } from 'react-native-markdown-renderer';
+import markdownItCheckbox from 'markdown-it-checkbox';
 import copyAll from './src/copyAll';
 import customMarkdownStyle from './src/customMarkdownStyle';
+import copyAllCheckboxPlugin from "./src/copyAllCheckboxPlugin";
+import pluginRules from "./src/pluginRules";
 
 const rules = {
   h1: (node, children, parents) => {
@@ -40,12 +43,13 @@ export default class App extends Component {
     { description: 'custom renderer' },
     { description: 'custom style sheet' },
     { description: 'custom rules' },
-    { description: 'custom rules & style sheet' },
+    { description: 'custom rules & styles' },
+    { description: 'plugins (checkbox)' },
   ];
 
   getView(value) {
     switch (value) {
-      case 0: {
+      case 6: {
         return <Markdown children={copyAll} />;
       }
       case 1: {
@@ -59,6 +63,9 @@ export default class App extends Component {
       }
       case 4: {
         return <Markdown rules={rules} style={customMarkdownStyle} children={copyAll} />;
+      }
+      case 0: {
+        return <Markdown rules={pluginRules} plugins={[new PluginContainer(markdownItCheckbox, {divWrap: true})]} style={customMarkdownStyle} children={copyAllCheckboxPlugin} />;
       }
       default: {
         return <Markdown># Text</Markdown>;

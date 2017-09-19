@@ -35,7 +35,7 @@ const renderer = new AstRenderer(
 
 export default class App extends Component {
   state = {
-    view: 5,
+    view: 0,
   };
 
   list = [
@@ -64,7 +64,7 @@ export default class App extends Component {
       case 4: {
         return <Markdown rules={rules} style={customMarkdownStyle} children={copyAll} />;
       }
-      case 5: {
+      case 6: {
         return <Markdown rules={pluginRules} plugins={[new PluginContainer(markdownItCheckbox, {divWrap: true})]} style={customMarkdownStyle} children={copyAllCheckboxPlugin} />;
       }
       default: {

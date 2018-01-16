@@ -8,7 +8,6 @@ import Markdown, {
 } from 'react-native-markdown-renderer';
 import markdownItCheckbox from 'markdown-it-checkbox';
 import copyAll from './src/copyAll';
-import code from './src/code';
 import customMarkdownStyle from './src/customMarkdownStyle';
 import copyAllCheckboxPlugin from "./src/copyAllCheckboxPlugin";
 import pluginRules from "./src/pluginRules";
@@ -36,7 +35,7 @@ const renderer = new AstRenderer(
 
 export default class App extends Component {
   state = {
-    view: 0,
+    view: 5,
   };
 
   list = [
@@ -51,7 +50,7 @@ export default class App extends Component {
   getView(value) {
     switch (value) {
       case 0: {
-        return <Markdown children={code} />;
+        return <Markdown children={copyAll} />;
       }
       case 1: {
         return <Markdown renderer={renderer.render} children={copyAll} />;
@@ -65,7 +64,7 @@ export default class App extends Component {
       case 4: {
         return <Markdown rules={rules} style={customMarkdownStyle} children={copyAll} />;
       }
-      case 6: {
+      case 5: {
         return <Markdown rules={pluginRules} plugins={[new PluginContainer(markdownItCheckbox, {divWrap: true})]} style={customMarkdownStyle} children={copyAllCheckboxPlugin} />;
       }
       default: {

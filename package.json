@@ -1,6 +1,6 @@
 {
   "name": "react-native-markdown-renderer",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "Markdown renderer for react-native, with CommonMark spec support + adds syntax extensions & sugar (URL autolinking, typographer).",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "react-native-fit-image": "^1.5.2"
   },
   "peerDependencies": {
-    "react": "16.0.0-alpha.12",
-    "react-native": "0.48.*"
+    "react": "^15.x",
+    "react-native": "^0.44.0"
   }
 }

@@ -24,6 +24,7 @@ function createNode(token, tokenIndex) {
 
   return {
     type,
+    sourceType: token.type,
     key: getUniqueID(),
     content,
     tokenIndex,

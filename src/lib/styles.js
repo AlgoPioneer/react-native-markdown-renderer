@@ -6,8 +6,18 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   view: {},
   codeBlock: {
-    fontFamily: 'Courier',
-    fontWeight: '500',
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    borderRadius: 4,
+  },
+  codeInline: {
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    borderRadius: 4,
   },
   del: {
     backgroundColor: '#000000',
@@ -37,6 +47,12 @@ export const styles = StyleSheet.create({
   hr: {
     backgroundColor: '#000000',
     height: 1,
+  },
+  blockquote: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    margin: 20,
+    backgroundColor: '#CCCCCC',
   },
   inlineCode: {
     borderRadius: 3,

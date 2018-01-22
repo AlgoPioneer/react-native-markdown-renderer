@@ -17,18 +17,18 @@ const renderRules = {
   },
 
   textgroup: (node, children, parent, styles) => {
-    return (
-      <Text key={node.key} style={styles.text}>
-        {children}
-      </Text>
-    );
+    return <Text key={node.key} style={styles.text}>{children}</Text>;
   },
   inline: (node, children, parent, styles) => {
     return <Text key={node.key}>{children}</Text>;
   },
 
   text: (node, children, parent, styles) => {
-    return <Text key={node.key}>{node.content}</Text>;
+    return (
+      <Text key={node.key}>
+        {node.content}
+      </Text>
+    );
   },
   span: (node, children, parent, styles) => {
     return <Text key={node.key}>{children}</Text>;
@@ -70,34 +70,34 @@ const renderRules = {
   },
 
   heading1: (node, children, parent, styles) => (
-    <View key={node.key} style={[styles.heading, styles.heading1]}>
-	    {children}
-    </View>
+    <Text key={node.key} style={[styles.heading, styles.heading1]}>
+      {children}
+    </Text>
   ),
   heading2: (node, children, parent, styles) => (
-    <View key={node.key} style={[styles.heading, styles.heading2]}>
+    <Text key={node.key} style={[styles.heading, styles.heading2]}>
       {children}
-    </View>
+    </Text>
   ),
   heading3: (node, children, parent, styles) => (
-    <View key={node.key} style={[styles.heading, styles.heading3]}>
+    <Text key={node.key} style={[styles.heading, styles.heading3]}>
       {children}
-    </View>
+    </Text>
   ),
   heading4: (node, children, parent, styles) => (
-    <View key={node.key} style={[styles.heading, styles.heading4]}>
+    <Text key={node.key} style={[styles.heading, styles.heading4]}>
       {children}
-    </View>
+    </Text>
   ),
   heading5: (node, children, parent, styles) => (
-    <View key={node.key} style={[styles.heading, styles.heading5]}>
+    <Text key={node.key} style={[styles.heading, styles.heading5]}>
       {children}
-    </View>
+    </Text>
   ),
   heading6: (node, children, parent, styles) => (
-    <View key={node.key} style={[styles.heading, styles.heading6]}>
+    <Text key={node.key} style={[styles.heading, styles.heading6]}>
       {children}
-    </View>
+    </Text>
   ),
 
   paragraph: (node, children, parent, styles) => (
@@ -221,13 +221,7 @@ const renderRules = {
     <Text key={node.key}>{"\n"}</Text>
   ),
   image: (node, children, parent, styles) => {
-    return (
-      <FitImage
-        key={node.key}
-        style={{ margin: 1 }}
-        source={{ uri: node.attributes.src }}
-      />
-    );
+    return <FitImage key={node.key} style={{margin: 1}} source={{ uri: node.attributes.src }} />;
   }
 };
 

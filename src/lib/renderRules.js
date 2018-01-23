@@ -5,6 +5,8 @@ import FitImage from "react-native-fit-image";
 import getUniqueID from "./util/getUniqueID";
 import openUrl from "./util/openUrl";
 import hasParents from "./util/hasParents";
+import applyStyle from "./util/applyStyle";
+import ImageComponent from "./ImageComponent";
 
 const renderRules = {
   // when unknown elements are introduced, so it wont break
@@ -17,18 +19,18 @@ const renderRules = {
   },
 
   textgroup: (node, children, parent, styles) => {
-    return <Text key={node.key} style={styles.text}>{children}</Text>;
+    return (
+      <Text key={node.key} style={styles.text}>
+        {children}
+      </Text>
+    );
   },
   inline: (node, children, parent, styles) => {
     return <Text key={node.key}>{children}</Text>;
   },
 
   text: (node, children, parent, styles) => {
-    return (
-      <Text key={node.key}>
-        {node.content}
-      </Text>
-    );
+    return <Text key={node.key}>{node.content}</Text>;
   },
   span: (node, children, parent, styles) => {
     return <Text key={node.key}>{children}</Text>;
@@ -69,35 +71,46 @@ const renderRules = {
     );
   },
 
-  heading1: (node, children, parent, styles) => (
-    <Text key={node.key} style={[styles.heading, styles.heading1]}>
-      {children}
-    </Text>
-  ),
-  heading2: (node, children, parent, styles) => (
-    <Text key={node.key} style={[styles.heading, styles.heading2]}>
-      {children}
-    </Text>
-  ),
+  heading1: (node, children, parent, styles) => {
+    return (
+      <View key={node.key} style={styles.headingContainer}>
+        {applyStyle(children, [styles.heading, styles.heading1], "Text")}
+      </View>
+    );
+  },
+
+  heading2: (node, children, parent, styles) => {
+
+    children = applyStyle(children, [styles.heading, styles.heading2], "Text");
+
+    console.log(children);
+
+
+    return (
+      <View key={node.key} style={styles.headingContainer}>
+        {children}
+      </View>
+    );
+  },
   heading3: (node, children, parent, styles) => (
-    <Text key={node.key} style={[styles.heading, styles.heading3]}>
-      {children}
-    </Text>
+    <View key={node.key} style={styles.headingContainer}>
+      {applyStyle(children, [styles.heading, styles.heading3], "Text")}
+    </View>
   ),
   heading4: (node, children, parent, styles) => (
-    <Text key={node.key} style={[styles.heading, styles.heading4]}>
-      {children}
-    </Text>
+    <View key={node.key} style={styles.headingContainer}>
+      {applyStyle(children, [styles.heading, styles.heading4], "Text")}
+    </View>
   ),
   heading5: (node, children, parent, styles) => (
-    <Text key={node.key} style={[styles.heading, styles.heading5]}>
-      {children}
-    </Text>
+    <View key={node.key} style={styles.headingContainer}>
+      {applyStyle(children, [styles.heading, styles.heading5], "Text")}
+    </View>
   ),
   heading6: (node, children, parent, styles) => (
-    <Text key={node.key} style={[styles.heading, styles.heading6]}>
-      {children}
-    </Text>
+    <View key={node.key} style={styles.headingContainer}>
+      {applyStyle(children, [styles.heading, styles.heading6], "Text")}
+    </View>
   ),
 
   paragraph: (node, children, parent, styles) => (
@@ -221,7 +234,13 @@ const renderRules = {
     <Text key={node.key}>{"\n"}</Text>
   ),
   image: (node, children, parent, styles) => {
-    return <FitImage key={node.key} style={{margin: 1}} source={{ uri: node.attributes.src }} />;
+    return (
+      <ImageComponent
+        key={node.key}
+        style={styles.image}
+        uri={node.attributes.src}
+      />
+    );
   }
 };
 

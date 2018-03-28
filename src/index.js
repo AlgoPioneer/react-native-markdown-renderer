@@ -40,15 +40,14 @@ export {
  */
 export default class Markdown extends Component {
   /**
-   * Definition of the prop types
-   */
+	 * Definition of the prop types
+	 */
   static propTypes = {
     children: PropTypes.node.isRequired,
     renderer: PropTypes.oneOfType([PropTypes.func, PropTypes.instanceOf(AstRenderer)]),
     rules: (props, propName, componentName) => {
       let invalidProps = [];
       const prop = props[propName];
-
 
       if (!prop) {
         return;
@@ -75,8 +74,8 @@ export default class Markdown extends Component {
   };
 
   /**
-   * Default Props
-   */
+	 * Default Props
+	 */
   static defaultProps = {
     renderer: null,
     rules: null,
@@ -150,10 +149,17 @@ export default class Markdown extends Component {
           this.renderer = renderer;
         }
       } else {
-        throw new Error('Provided renderer is not compatible with function or AstRenderer. please change');
+        throw new Error(
+          'Provided renderer is not compatible with function or AstRenderer. please change'
+        );
       }
     } else {
-      if (!this.renderer || this.props.renderer || this.props.rules !== rules || this.props.style !== style) {
+      if (
+        !this.renderer ||
+        this.props.renderer ||
+        this.props.rules !== rules ||
+        this.props.style !== style
+      ) {
         this.renderer = new AstRenderer(
           {
             ...renderRules,
@@ -167,7 +173,11 @@ export default class Markdown extends Component {
       }
     }
 
-    if (!this.markdownParser || this.props.markdownit !== markdownit || plugins !== this.props.plugins) {
+    if (
+      !this.markdownParser ||
+      this.props.markdownit !== markdownit ||
+      plugins !== this.props.plugins
+    ) {
       let md = markdownit;
       if (plugins && plugins.length > 0) {
         plugins.forEach(plugin => {
@@ -203,10 +213,11 @@ export default class Markdown extends Component {
     return children instanceof Array ? children.join('') : children;
   }
 
+
   /**
-   *
-   * @return {View}
-   */
+	 *
+	 * @return {View}
+	 */
   render() {
     const copy = (this.copy = this.getCopyFromChildren());
     return parser(copy, this.renderer.render, this.markdownParser);

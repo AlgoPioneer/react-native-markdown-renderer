@@ -157,10 +157,6 @@ export const styles = StyleSheet.create({
   link: {
     textDecorationLine: "underline"
   },
-  blocklink: {
-	  borderColor: "#000000",
-	  borderBottomWidth: 1
-  },
   u: {
     borderColor: "#000000",
     borderBottomWidth: 1
